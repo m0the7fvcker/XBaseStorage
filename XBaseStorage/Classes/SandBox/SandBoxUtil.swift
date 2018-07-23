@@ -119,7 +119,7 @@ public class SandBoxUtil: NSObject {
         UserDefaults.standard.synchronize()
     }
     
-    /// 计算指定路径文件大小(此方法逻辑还是有一定问题) //TODO
+    /// 计算指定路径文件大小
     ///
     /// - Parameter path: path
     /// - Returns: filesize
@@ -142,7 +142,8 @@ public class SandBoxUtil: NSObject {
         
         var totalSize: UInt64 = 0
         subPaths?.forEach({ (subPath) in
-            if mgr.fileExists(atPath: subPath, isDirectory: &isDir) {
+            let newSubPath = "\(path)/\(subPath)"
+            if mgr.fileExists(atPath: newSubPath, isDirectory: &isDir) {
                 if !isDir.boolValue {
                     if let files = try? mgr.attributesOfItem(atPath: path) {
                         totalSize += files[FileAttributeKey("NSFileSize")] as! UInt64

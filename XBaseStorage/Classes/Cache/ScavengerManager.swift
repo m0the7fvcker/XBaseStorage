@@ -10,14 +10,18 @@ import UIKit
 protocol ScavengerProtocol {
     var scId: String { get }
     func clearCache()
-    func cacheSize() -> uint
+    func cacheSize() -> UInt64
+}
+
+enum CacheType: String {
+    case root = "app_cache_root"
+    case searchHistory = "search_history"
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-class ScavengerManager: NSObject {
+class ScavengerManager {
     
     static let `shared` = ScavengerManager()
-    private override init() {}
     
     var scavengers: [ScavengerProtocol] = []
     var currentScavengers: [String: String] = Dictionary(minimumCapacity: 1)
@@ -42,6 +46,15 @@ class ScavengerManager: NSObject {
         
         scavengers.remove(at: index!)
     }
+    
+    func getRootCachePath(withType type: CacheType) -> String {
+        let cachePath = SandBoxUtil.shared.getPath(withType: .cache)
+        let subCachePath = "\(cachePath)/\(type.rawValue)"
+        if !FileManager.default.fileExists(atPath: subCachePath) {
+            try? SandBoxUtil.shared.createFolder(folderName: subCachePath, atDir: .cache)
+        }
+        return subCachePath
+    }
 }
 
 extension ScavengerManager: ScavengerProtocol {
@@ -54,15 +67,21 @@ extension ScavengerManager: ScavengerProtocol {
         scavengers.forEach {
             $0.clearCache()
         }
-        //TODO 清楚沙盒缓存
+        // 清除沙盒缓存根目录缓存
+        let fileMgr = FileManager.default
+        let rootCachePath = getRootCachePath(withType: .root)
+        if fileMgr.fileExists(atPath: rootCachePath) {
+            try? fileMgr.removeItem(atPath: rootCachePath)
+        }
     }
     
-    func cacheSize() -> uint {
-        var totalSize: uint = 0
+    func cacheSize() -> UInt64 {
+        var totalSize: UInt64 = 0
         for sc in scavengers {
             totalSize += sc.cacheSize()
         }
-        //TODO 加上沙盒缓存
+        // 加上沙盒缓存根目录大小
+        totalSize += SandBoxUtil.shared.caculateBytesAtPath(path: getRootCachePath(withType: .root))
         return totalSize
     }
 }

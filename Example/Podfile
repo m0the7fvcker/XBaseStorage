@@ -2,6 +2,7 @@ use_frameworks!
 
 target 'XBaseStorage_Example' do
   pod 'XBaseStorage', :path => '../'
+  pod 'RealmSwift'
 
   target 'XBaseStorage_Tests' do
     inherit! :search_paths

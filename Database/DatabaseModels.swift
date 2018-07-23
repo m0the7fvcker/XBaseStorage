@@ -19,4 +19,7 @@ class ExampleModel: Object {
     @objc dynamic var identifier: Int = 0
     @objc dynamic var name: String?
     @objc dynamic var age: NSDate = NSDate()
+    @objc dynamic var sex: String?
+    @objc dynamic var home: String?
 }
+

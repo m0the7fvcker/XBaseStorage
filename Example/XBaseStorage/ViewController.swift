@@ -20,7 +20,6 @@ class Dog: Object {
     override class func primaryKey() -> String? {
         return "id"
     }
-    
 }
 
 class Person: Object {
@@ -55,25 +54,28 @@ class ViewController: UIViewController {
     }
     
     func testRealm() {
-        
-        
-        let realm = try! Realm()
-        print(realm.configuration.fileURL!)
+    
         
         var dog = Dog()
         dog.id = 3
         dog.name = "阿三"
-        dog.age = 3
+//        dog.age = 3
         
         var dog1 = Dog()
         dog1.name = "阿四"
-        dog1.age = 4
+//        dog1.age = 4
         dog1.id = 4
         
         var dog2 = Dog()
         dog2.name = "阿五"
-        dog2.age = 5
+//        dog2.age = 5
         dog2.id = 5
+        
+//        DBManager.default.beginOperation { (hander) in
+//            try? hander.write {
+//                hander.add([dog, dog1, dog2])
+//            }
+//        }
         
 //        try! realm.write {
 //            realm.add(dog)

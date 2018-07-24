@@ -64,8 +64,10 @@ public class SandBoxUtil: NSObject {
         var isDir: ObjCBool = ObjCBool(false)
         if mgr.fileExists(atPath: path, isDirectory: &isDir) {
             if isDir.boolValue {
+                print("创建目录失败，目录已经存在")
                 throw SandboxCreateFileError.dirExist
             } else {
+                print("创建目录失败，已存在同名文件")
                 throw SandboxCreateFileError.fileExist
             }
         }

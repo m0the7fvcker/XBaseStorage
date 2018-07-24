@@ -48,21 +48,20 @@ protocol MemoryCacheProtocol {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-public class AbstractMemoryCacheManager: NSObject {
+public class AbstractMemoryCacheManager {
     
     var refreshDate: Date = Date()
     var cacaheDic: [String: Any] = Dictionary(minimumCapacity: 1)
     
     static let `shared` = AbstractMemoryCacheManager()
-    private override init() {}
-}
-
-extension AbstractMemoryCacheManager: MemoryCacheProtocol {
-
+    
     func expireTime() -> TimeInterval {
         assert(false, "抽象类，需要子类实现")
         return 0
     }
+}
+
+extension AbstractMemoryCacheManager: MemoryCacheProtocol {
     
     func cache(object: Any, forKey key: String) {
         cacaheDic.updateValue(object, forKey: key)

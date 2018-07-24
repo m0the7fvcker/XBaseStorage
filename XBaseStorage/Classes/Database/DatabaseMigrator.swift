@@ -1,5 +1,5 @@
 //
-//  DBMigrator.swift
+//  DatabaseMigrator.swift
 //  XBaseStorage
 //
 //  Created by Poly.ma on 2018/7/23.
@@ -7,12 +7,12 @@
 
 import RealmSwift
 
-public class DBMigrator: NSObject {
+public class DatabaseMigrator: NSObject {
     
     public class func startMigrateIfNeeded() {
         
         /// 当前数据库版本，当数据表有变动时一定要记得修改版本号
-        let currentDBVersion: UInt64 = 7
+        let currentDBVersion: UInt64 = 8
         
         /// 配置数据库，在此方法中针对不同老版本进行数据迁移
         /// 数据库会自动为当前项目中的模型添加或移除字段，

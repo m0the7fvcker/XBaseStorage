@@ -9,7 +9,7 @@
 /// 都会在.realm数据库中生成对应的数据表，由于reaml的底层非
 /// coreData和sqllite，所以要按照realm的规范来使用realm
 /// 简单使用可以参考https://www.jianshu.com/p/06782df0b901
-/// 具体使用可以查看https://realm.io/docs/swift/latest/#installation
+/// 具体使用可以查看https://realm.io/cn/docs/swift/latest/#threading
 
 import RealmSwift
 

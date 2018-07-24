@@ -1,5 +1,5 @@
 //
-//  DBManager.swift
+//  DatabaseManager.swift
 //  XBaseStorage
 //
 //  Created by Poly.ma on 2018/7/23.
@@ -7,9 +7,9 @@
 
 import RealmSwift
 
-public class DBManager {
+public class DatabaseManager {
 
-    public static let `default` = DBManager()
+    public static let `default` = DatabaseManager()
     
     let realm = try! Realm()
     
@@ -44,27 +44,44 @@ public class DBManager {
     // let dog = ... 存储在 Realm 中的 Dog 对象
     // let dogs = ... 存储在 Realm 中的多个 Dog 对象
     /* 在事务中删除数据 */
-    // try! handler.write {
-    //      handler.delete(dog) // 删除单个数据
-    //      handler.delete(dogs) // 删除多个数据
-    //      handler.deleteAll() // 从 Realm 中删除所有数据
-    //}
+    // DBManager.default.beginOperation { (handler) in
+    //     do {
+    //          try! handler.write {
+    //              handler.delete(dog) // 删除单个数据
+    //              handler.delete(dogs) // 删除多个数据
+    //              handler.deleteAll() // 从 Realm 中删除所有数据
+    //          }
+    //          print("数据删除成功")
+    //     } catch _ {
+    //          print("数据删除失败")
+    //     }
+    // }
     
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Update
     // let dog = ... 存储在 Realm 中的 Dog 对象
     /* 在一个事务中修改数据 */
     // DBManager.default.beginOperation { (handler) in
-    //    try! handler.write {
-    //       dog.name = "张三"
+    //    do {
+    //          try! handler.write {
+    //              dog.name = "张三"
+    //          }
+    //          print("数据更新成功")
+    //    } catch _ {
+    //          print("数据更新失败")
     //    }
     // }
     // let dogs = ... 存储在 Realm 中的多个 Dog 对象
     /* 在一个事务中修改数据 */
     // DBManager.default.beginOperation { (handler) in
-    //    try? handler.write {
-    //       dogs.first?.setValue("张三", forKeyPath: "name") // 将第一个狗狗名字改为张三
-    //       dogs.setValue("张三", forKeyPath: "name") // 将所有狗狗名字都改为张三
+    //    do {
+    //          try? handler.write {
+    //              dogs.first?.setValue("张三", forKeyPath: "name") // 将第一个狗狗名字改为张三
+    //              dogs.setValue("张三", forKeyPath: "name") // 将所有狗狗名字都改为张三
+    //          }
+    //          print("数据更新成功")
+    //    } catch _ {
+    //          print("数据更新失败")
     //    }
     // }
 
@@ -72,9 +89,14 @@ public class DBManager {
     // let dogs = ... 存储在 Realm 中的多个 Dog 对象（有主键）
     /* 在一个事务中修改数据，通过主键，若主键不存在则自动添加 */
     // DBManager.default.beginOperation { (handler) in
-    //    try? handler.write {
-    //        handler.add(dog, update: true) // 更新单个数据
-    //        handler.add(dogs, update: true) // 更新多个数据
+    //    do {
+    //          try? handler.write {
+    //              handler.add(dog, update: true) // 更新单个数据
+    //              handler.add(dogs, update: true) // 更新多个数据
+    //          }
+    //          print("数据更新成功")
+    //    } catch _ {
+    //          print("数据更新失败")
     //    }
     // }
     
@@ -86,10 +108,15 @@ public class DBManager {
     // let dogs = [Dog(value: ["name": "张三", "age": 1]), Dog(value: ["name": "李四", "age": 2]), Dog(value: ["name": "王五", "age": 3])]
     /* 通过事务将数据添加到 Realm 中 */
     // DBManager.default.beginOperation { (handler) in
-    //    try? handler.write {
-    //        handler.add(dog) // 增加单个数据
-    //        handlerm.add(dogs) // 增加多个数据
-    //        handler.create(Dog.self, value: ["name" : "豆豆", "age": 3], update: true) // 直接根据 JSON 数据增加
+    //    do {
+    //          try? handler.write {
+    //              handler.add(dog, update: true) // 增加单个数据
+    //              handlerm.add(dogs, update: true) // 增加多个数据
+    //              handler.create(Dog.self, value: ["name" : "豆豆", "age": 3], update: true) // 直接根据 JSON 数据增加
+    //          }
+    //          print("数据插入成功")
+    //    } catch _ {
+    //          print("数据插入成功")
     //    }
     // }
     

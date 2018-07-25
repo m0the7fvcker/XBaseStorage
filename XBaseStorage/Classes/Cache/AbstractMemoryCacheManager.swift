@@ -53,8 +53,6 @@ open class AbstractMemoryCacheManager {
     var refreshDate: Date = Date()
     var cacaheDic: [String: Any] = Dictionary(minimumCapacity: 1)
     
-//    static let `shared` = AbstractMemoryCacheManager()
-    
     open func expireTime() -> TimeInterval {
         assert(false, "抽象类，需要子类实现")
         return 0

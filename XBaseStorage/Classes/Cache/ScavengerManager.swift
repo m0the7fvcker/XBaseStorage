@@ -7,26 +7,26 @@
 
 import UIKit
 
-protocol ScavengerProtocol {
+public protocol ScavengerProtocol {
     var scId: String { get }
     func clearCache()
     func cacheSize() -> UInt64
 }
 
-enum CacheType: String {
+public enum CacheType: String {
     case root = "app_cache_root"
     case searchHistory = "search_history"
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-class ScavengerManager {
+public class ScavengerManager {
     
-    static let `shared` = ScavengerManager()
+    public static let `shared` = ScavengerManager()
     
-    var scavengers: [ScavengerProtocol] = []
-    var currentScavengers: [String: String] = Dictionary(minimumCapacity: 1)
+    public var scavengers: [ScavengerProtocol] = []
+    public var currentScavengers: [String: String] = Dictionary(minimumCapacity: 1)
     
-    func addScavenger(scavenger: ScavengerProtocol) {
+    public func addScavenger(scavenger: ScavengerProtocol) {
         let sc = scavenger
         if  currentScavengers.contains(where: {
             return $0.key.compare(sc.scId) == .orderedSame
@@ -38,7 +38,7 @@ class ScavengerManager {
         scavengers.append(scavenger)
     }
     
-    func removeScavenger(scavenger: ScavengerProtocol) {
+    public func removeScavenger(scavenger: ScavengerProtocol) {
         let sc = scavenger
         let index = scavengers.index {
             return $0.scId.compare(sc.scId) == .orderedSame
@@ -47,7 +47,7 @@ class ScavengerManager {
         scavengers.remove(at: index!)
     }
     
-    func getRootCachePath(withType type: CacheType) -> String {
+    public func getRootCachePath(withType type: CacheType) -> String {
         let cachePath = SandBoxUtil.shared.getPath(withType: .cache)
         let subCachePath = "\(cachePath)/\(type.rawValue)"
         if !FileManager.default.fileExists(atPath: subCachePath) {
@@ -59,11 +59,11 @@ class ScavengerManager {
 
 extension ScavengerManager: ScavengerProtocol {
     
-    var scId: String {
+    public var scId: String {
         get { return "" }
     }
     
-    func clearCache() {
+    public func clearCache() {
         scavengers.forEach {
             $0.clearCache()
         }
@@ -75,7 +75,7 @@ extension ScavengerManager: ScavengerProtocol {
         }
     }
     
-    func cacheSize() -> UInt64 {
+    public func cacheSize() -> UInt64 {
         var totalSize: UInt64 = 0
         for sc in scavengers {
             totalSize += sc.cacheSize()

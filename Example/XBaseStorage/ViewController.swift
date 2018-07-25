@@ -106,3 +106,11 @@ class ViewController: UIViewController {
 
 }
 
+class Test {
+    var mg = GlobalMemoryCacheManager.shared
+    
+    func test() {
+        mg.resetExpireTime()
+    }
+}
+

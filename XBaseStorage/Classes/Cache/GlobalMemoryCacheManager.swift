@@ -7,11 +7,14 @@
 
 import Foundation
 
-class GlobalMemoryCacheManager: AbstractMemoryCacheManager {
+public class GlobalMemoryCacheManager: AbstractMemoryCacheManager {
     
-    override func expireTime() -> TimeInterval {
+    public static let `shared` = GlobalMemoryCacheManager()
+    
+    override public func expireTime() -> TimeInterval {
         return 60 * 60 * 24
     }
 }
+
 
 

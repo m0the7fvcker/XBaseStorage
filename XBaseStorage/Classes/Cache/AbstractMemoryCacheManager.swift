@@ -57,6 +57,8 @@ open class AbstractMemoryCacheManager {
         assert(false, "抽象类，需要子类实现")
         return 0
     }
+    
+    public init() {}
 }
 
 extension AbstractMemoryCacheManager: MemoryCacheProtocol {

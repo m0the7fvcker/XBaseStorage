@@ -54,7 +54,7 @@ open class AbstractMemoryCacheManager {
     var cacaheDic: [String: Any] = Dictionary(minimumCapacity: 1)
     
     open func expireTime() -> TimeInterval {
-        assert(false, "抽象类，需要子类实现")
+        assert(false, "抽象方法，需要子类实现")
         return 0
     }
     

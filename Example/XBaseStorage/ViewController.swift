@@ -40,9 +40,27 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         addButton()
+        addUpdateButton()
+        addDeleteButton()
         
         testKeychain()
         testSanbox()
+        
+        addData()
+    }
+    
+    func addDeleteButton() {
+        let btn = UIButton(frame: CGRect(x: 0, y: 500, width: 100, height: 100))
+        btn.backgroundColor = .yellow
+        btn.addTarget(self, action: #selector(deleteData), for: .touchUpInside)
+        view.addSubview(btn)
+    }
+    
+    func addUpdateButton() {
+        let btn = UIButton(frame: CGRect(x: 0, y: 300, width: 100, height: 100))
+        btn.backgroundColor = .green
+        btn.addTarget(self, action: #selector(updateData), for: .touchUpInside)
+        view.addSubview(btn)
     }
     
     func addButton() {
@@ -50,6 +68,40 @@ class ViewController: UIViewController {
         btn.backgroundColor = .red
         btn.addTarget(self, action: #selector(addData), for: .touchUpInside)
         view.addSubview(btn)
+    }
+    
+    @objc func deleteData() {
+        let person = DatabaseManager.default.selectObjects(Person.self).first!
+        let dog1 = person.dogs.first!
+        let dog3 = person.dogs.last!
+        
+        DatabaseManager.default.beginOperation { (handler) in
+            do {
+                try handler.write {
+                    person.setValue([dog1, dog3], forKey: "dogs")
+                }
+                print("数据更新成功")
+            } catch _ {
+                print("数据更新失败")
+            }
+        }
+    }
+    
+    @objc func updateData() {
+        let person = DatabaseManager.default.selectObjects(Person.self).first!
+        let dog = person.dogs.first!
+        
+        DatabaseManager.default.beginOperation { (handler) in
+            do {
+                try handler.write {
+                    dog.setValue("嗷嗷", forKey: "name")
+                    dog.setValue(8, forKey: "age")
+                }
+                print("数据更新成功")
+            } catch _ {
+                print("数据更新失败")
+            }
+        }
     }
     
     @objc func addData() {
@@ -97,12 +149,9 @@ class ViewController: UIViewController {
         
         print(KeychainManager.shared.get(objectForKey: "name", serviceName: "s1")!)
         print(KeychainManager.shared.get(objectForKey: "name", serviceName: "s2")!)
-
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
+    
 
 }
 

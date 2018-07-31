@@ -64,11 +64,11 @@ open class AbstractMemoryCacheManager {
 extension AbstractMemoryCacheManager: MemoryCacheProtocol {
     
     
-    open func cache(object: Any, forKey key: String) {
-        cacaheDic.updateValue(object, forKey: key)
+    open func cache(value: Any, forKey key: String) {
+        cacaheDic.updateValue(value, forKey: key)
     }
 
-    open func remove(object: Any, forKey key: String) {
+    open func removeValue(forKey key: String) {
         cacaheDic.removeValue(forKey: key)
     }
     

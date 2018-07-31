@@ -17,18 +17,17 @@ public protocol MemoryCacheProtocol {
     /// 设置缓存
     ///
     /// - Parameters:
-    ///   - object: object
+    ///   - value: object
     ///   - key: key
     /// - Returns: void
-    func cache(object: Any, forKey key: String)
+    func cache(value: Any, forKey key: String)
     
     /// 移除缓存
     ///
     /// - Parameters:
-    ///   - object: object
     ///   - key: key
     /// - Returns: void
-    func remove(object: Any, forKey key: String)
+    func removeValue(forKey key: String)
 
     /// 重置
     ///
